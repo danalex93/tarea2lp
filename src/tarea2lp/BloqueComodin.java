@@ -1,13 +1,13 @@
 package tarea2lp;
 
-public class BloqueComodin extends Bloque implements HabilityInterface{
-	public HabilityInterface habilidad;
+public class BloqueComodin extends Bloque implements HabilityBehavior{
+	public HabilityBehavior habilidad;
 
-	public HabilityInterface getHabilidad() {
+	public HabilityBehavior getHabilidad() {
 		return habilidad;
 	}
 
-	public void setHabilidad(HabilityInterface habilidad) {
+	public void setHabilidad(HabilityBehavior habilidad) {
 		this.habilidad = habilidad;
 	}
 

@@ -1,5 +1,5 @@
 package tarea2lp;
 
-public interface HabilityInterface {
+public interface HabilityBehavior {
 	public void Habilidad();
 }
