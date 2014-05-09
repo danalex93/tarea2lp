@@ -120,24 +120,17 @@ public class GUI implements ActionListener{
 	}
 	
 	public void swapButton(int x1, int y1, int x2, int y2){
-		JButton j1 = grid[x1][y1];
-		JButton j2 = grid[x2][y2];
-		grid[x1][y1] = createButton(j2.getText());
-		grid[x1][y1].addActionListener(this);
-		grid[x1][y1].setActionCommand("Swap-"+x1+"-"+y1);
-		grid[x2][y2] = createButton(j1.getText());
-		grid[x2][y2].addActionListener(this);
-		grid[x2][y2].setActionCommand("Swap-"+x2+"-"+y2);
-		frame.remove(j1);
-		frame.remove(j2);
-		
-		
-		for (int y = 0; y < 15; y++) {
-			for (int x = 0; x < 15; x++) {
-				frame.add(grid[x][y]);
-			}
-		}
-
+		JButton button1 = grid[x1][y1];
+		JButton button2 = grid[x2][y2];
+		button1.setBackground(allButtons.get(button2.getText()));
+		button2.setBackground(allButtons.get(button1.getText()));
+		String auxstr = button1.getText();
+		button1.setText(button2.getText());
+		button2.setText(auxstr);
+		button1.setOpaque(true);
+		button1.setBorder(customBorder);
+		button2.setOpaque(true);
+		button2.setBorder(customBorder);
 		frame.pack();
 		frame.setVisible(true);
 	}
