@@ -132,6 +132,9 @@ public class GUI implements ActionListener{
 		button2.setOpaque(true);
 		button2.setBorder(customBorder);
 		frame.pack();
+		clearButtons(button1,x1,y1);
+		clearButtons(button2,x2,y2);
+		frame.pack();
 		frame.setVisible(true);
 	}
 	
@@ -139,6 +142,59 @@ public class GUI implements ActionListener{
 	    Random rand = new Random();
 	    int randomNum = rand.nextInt((max - min) + 1) + min;
 	    return randomNum;
+	}
+	
+	public void clearButtons(JButton j, int x, int y){		
+		// Chequear iguales
+		// En X:
+		int xplus = x, xminus = x;
+		int yplus = y, yminus = y;
+		for (int x1=(x+1);x1<15;x1++){
+			if (grid[x1][y].getText().equals(j.getText())){
+				xplus = x1;
+			}
+			else{
+				break;
+			}
+		}
+		for (int x2=(x-1);x2>=0;x2--){
+			if (grid[x2][y].getText().equals(j.getText())){
+				xminus = x2;
+			}
+			else{
+				break;
+			}
+		}
+		// En Y:		
+		for (int y1=(y+1);y1<15;y1++){
+			if (grid[x][y1].getText().equals(j.getText())){
+				yplus = y1;
+			}
+			else{
+				break;
+			}
+		}
+		for (int y2=(y-1);y2>=0;y2--){
+			if (grid[x][y2].getText().equals(j.getText())){
+				yminus = y2;
+			}
+			else{
+				break;
+			}
+		}
+		// Eliminear iguales
+		// En X:
+		if (xplus-xminus>=2){
+			for (int i = xminus; i <= xplus; i++){
+				grid[i][y].setBackground(Color.WHITE);
+			}
+		}
+		// En Y:
+		if (yplus-yminus>=2){
+			for (int i = yminus; i <= yplus; i++){
+				grid[x][i].setBackground(Color.WHITE);
+			}
+		}
 	}
 
 	@Override
