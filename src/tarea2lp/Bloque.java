@@ -1,5 +1,7 @@
 package tarea2lp;
+import javax.swing.JButton;
 
-public abstract class Bloque {
+@SuppressWarnings("serial")
+public abstract class Bloque extends JButton{
 	public abstract void destruirBloque();
 }

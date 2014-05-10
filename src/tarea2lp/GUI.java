@@ -391,11 +391,11 @@ public class GUI implements ActionListener{
 				if (x+2 < 15){
 					if (aux.getText().equals(grid[y][x+2])){
 						if ((y-1 >= 0) && (x+1 < 15)){ // derecha-arriba
-							if (aux.getText().equals(grid[y-1][x+1]))
+							if (aux.getText().equals(grid[y-1][x+1].getText()))
 								return false;
 						}
 						if ((y+1 < 15) && (x+1 < 15)){ // derecha-abajo
-							if (aux.getText().equals(grid[y+1][x+1]))
+							if (aux.getText().equals(grid[y+1][x+1].getText()))
 								return false;
 						}
 					}
@@ -405,11 +405,11 @@ public class GUI implements ActionListener{
 				if (y-2 >= 0){
 					if (aux.getText().equals(grid[y-2][x])){
 						if ((y-1 >= 0) && (x+1 < 15)){ // arriba-derecha
-							if (aux.getText().equals(grid[y-1][x+1]))
+							if (aux.getText().equals(grid[y-1][x+1].getText()))
 								return false;
 						}
 						if ((y-1 >= 0) && (x-1 >= 0)){ // arriba-izquerda
-							if (aux.getText().equals(grid[y-1][x-1]))
+							if (aux.getText().equals(grid[y-1][x-1].getText()))
 								return false;
 						}
 					}
