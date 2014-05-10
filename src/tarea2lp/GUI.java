@@ -1,14 +1,22 @@
 package tarea2lp;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +26,7 @@ import java.lang.Math;
 
 
 public class GUI implements ActionListener{
-	JFrame frame = new JFrame("Longaniza Crush - brought to you by @danalex93 & @nachoman");
+	static JFrame frame = new JFrame("Longaniza Crush - brought to you by @danalex93 & @nachoman");
 	BlockButton[][] grid;
 	private int joker;
 	static JButton firstButton;
@@ -36,6 +44,29 @@ public class GUI implements ActionListener{
 
 	//normal button probability
 	static int nbpercent = 96;
+	
+	// Estadisticas de juego
+	private static Integer[] estadisticas = {0,0,0,0,0};//R,B,O,G,Y
+	private static JLabel[] estadisticasLabel = new JLabel[5];
+
+	public static void initEstadisticasLabel() {
+		estadisticasLabel[0] = new JLabel("R: "+estadisticas[0]);
+		estadisticasLabel[1] = new JLabel("B: "+estadisticas[1]);
+		estadisticasLabel[2] = new JLabel("O: "+estadisticas[2]);
+		estadisticasLabel[3] = new JLabel("G: "+estadisticas[3]);
+		estadisticasLabel[4] = new JLabel("Y: "+estadisticas[4]);
+		for(int i=0;i<5;i++){
+			frame.add(estadisticasLabel[i]);
+		}
+	}
+	
+	public static void setEstadisticasLabel(){
+		estadisticasLabel[0].setText("R: "+estadisticas[0]);
+		estadisticasLabel[1].setText("B: "+estadisticas[1]);
+		estadisticasLabel[2].setText("O: "+estadisticas[2]);
+		estadisticasLabel[3].setText("G: "+estadisticas[3]);
+		estadisticasLabel[4].setText("Y: "+estadisticas[4]);
+	}
 	
 	@SuppressWarnings("serial")
 	public class BlockButton extends JButton {
@@ -85,7 +116,7 @@ public class GUI implements ActionListener{
 		allButtons.putAll(bonusButtons);
 		buttonSelected = false;
 		
-		frame.setLayout(new GridLayout(height, width));
+		frame.setLayout(new GridLayout(height+1, width));
 		grid = new BlockButton[height][width];
 		String auxkey;
 		
@@ -101,6 +132,7 @@ public class GUI implements ActionListener{
 				frame.add(grid[y][x]);
 			}
 		}
+		initEstadisticasLabel();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
@@ -176,9 +208,10 @@ public class GUI implements ActionListener{
 	    return randomNum;
 	}
 	
-	public void clearButtons(BlockButton j){		
+	public void clearButtons(BlockButton j){
 		// Chequear iguales
 		// En X:
+		String colour = j.getText();
 		int xplus = j.x, xminus = j.x;
 		int yplus = j.y, yminus = j.y;
 		for (int y1=(j.y+1);y1<15;y1++){
@@ -215,6 +248,8 @@ public class GUI implements ActionListener{
 			}
 		}
 		// Eliminar iguales
+		Integer total = 0;
+		
 		// En X:
 		if (xplus-xminus>=2){
 			for (int i = xminus; i <= xplus; i++){
@@ -226,6 +261,7 @@ public class GUI implements ActionListener{
 					swapWhite(i,r,i,r-1); 
 				}
 			}
+			total += (xplus-xminus) + 1;
 		}
 		// En Y:
 		if (yplus-yminus>=2){
@@ -238,7 +274,26 @@ public class GUI implements ActionListener{
 					swapWhite(j.x,r,j.x,r-1);
 				}	
 			}
+			total += (yplus-yminus) + 1;
 		}
+		
+		//R,B,O,G,Y
+		if (colour.equals("R")){
+			estadisticas[0] += total;
+		}
+		else if (colour.equals("B")){
+			estadisticas[1] += total;
+		}
+		else if (colour.equals("O")){
+			estadisticas[2] += total;
+		}
+		else if (colour.equals("G")){
+			estadisticas[3] += total;
+		}
+		else if (colour.equals("Y")){
+			estadisticas[4] += total;
+		}
+		setEstadisticasLabel();
 	}
 	
 	public void fillWhites(){
