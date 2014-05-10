@@ -8,7 +8,6 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -136,7 +135,6 @@ public class GUI implements ActionListener{
 		button1.y = y1;
 		button2.x = x2;
 		button2.y = y2;
-		frame.pack();
 		for (int y=0;y<15;y++){
 			for (int x=0;x<15;x++){
 				if ( (grid[y][x].getText().equals("-")) || (grid[y][x].getText().equals("$")) || (grid[y][x].getText().equals("&")) )
@@ -144,6 +142,7 @@ public class GUI implements ActionListener{
 				clearButtons(grid[y][x]);
 			}
 		}
+		fillWhites();
 		frame.pack();
 		frame.setVisible(true);
 		if (isGameOver()){
@@ -237,6 +236,28 @@ public class GUI implements ActionListener{
 					if(grid[r-1][j.x].getText().equals("-"))
 						break;
 					swapWhite(j.x,r,j.x,r-1);
+				}	
+			}
+		}
+	}
+	
+	public void fillWhites(){
+		String auxkey;
+		for (int y = 0; y < 15; y++) {
+			for (int x = 0; x < 15; x++) {
+				if (grid[y][x].getText().equals("-")){
+					joker = randInt(0, 100);
+					if (joker < nbpercent) {
+						auxkey = randKey(normalButtons);
+					} else {
+						auxkey = randKey(bonusButtons);
+					}
+					grid[y][x].setBackground(allButtons.get(auxkey));
+					grid[y][x].setText(auxkey);
+					grid[y][x].setOpaque(true);
+					grid[y][x].setBorder(customBorder);
+					grid[y][x].x = x;
+					grid[y][x].y = y;
 				}
 			}
 		}
@@ -342,6 +363,7 @@ public class GUI implements ActionListener{
 		}
 		return true;
 	}
+	
 	
 	private void msgbox(String s){
 	   JOptionPane.showMessageDialog(null, s);
