@@ -25,6 +25,7 @@ import java.util.Random;
 import java.lang.Math;
 
 
+@SuppressWarnings("unused")
 public class GUI implements ActionListener{
 	static JFrame frame = new JFrame("Block Crush - brought to you by @danalex93 & @nachoman");
 	BlockButton[][] grid;
