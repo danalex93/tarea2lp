@@ -97,7 +97,6 @@ public class GUI implements ActionListener{
 				} else {
 					auxkey = randKey(bonusButtons);
 				}
-				//grid[y][x] = createButton("x"+x+"y"+y, x, y);
 				grid[y][x] = createButton(auxkey, x, y);
 				frame.add(grid[y][x]);
 			}
@@ -139,6 +138,25 @@ public class GUI implements ActionListener{
 		frame.pack();
 		clearButtons(button1);
 		clearButtons(button2);
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	public void swapWhite(int x1, int y1, int x2, int y2){
+		BlockButton button1 = grid[y1][x1];
+		BlockButton button2 = grid[y2][x2];
+		button1.setBackground(allButtons.get(button2.getText()));
+		button2.setBackground(Color.WHITE);
+		button1.setText(button2.getText());
+		button2.setText("-");
+		button1.setOpaque(true);
+		button1.setBorder(customBorder);
+		button2.setOpaque(true);
+		button2.setBorder(customBorder);
+		button1.x = x1;
+		button1.y = y1;
+		button2.x = x2;
+		button2.y = y2;
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -193,6 +211,11 @@ public class GUI implements ActionListener{
 			for (int i = xminus; i <= xplus; i++){
 				grid[j.y][i].setBackground(Color.WHITE);
 				grid[j.y][i].setText("-");
+				for (int r=j.y;r>0;r--){
+					if(grid[r-1][i].getText().equals("-"))
+						break;
+					swapWhite(i,r,i,r-1); 
+				}
 			}
 		}
 		// En Y:
@@ -200,6 +223,11 @@ public class GUI implements ActionListener{
 			for (int i = yminus; i <= yplus; i++){
 				grid[i][j.x].setBackground(Color.WHITE);
 				grid[i][j.x].setText("-");
+				for (int r=i;r>0;r--){
+					if(grid[r-1][j.x].getText().equals("-"))
+						break;
+					swapWhite(j.x,r,j.x,r-1);
+				}
 			}
 		}
 	}
