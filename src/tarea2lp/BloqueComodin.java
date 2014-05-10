@@ -1,6 +1,7 @@
 package tarea2lp;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 
@@ -30,6 +31,7 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 	
 	public BloqueComodin() {
 		String colorName = randKey(buttons);
+		
 		try {
 			Object[] values = buttons.get(colorName);
 			innerButton = new BlockButton((String) values[0]);
@@ -38,6 +40,7 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 		} catch (Exception e) {
 			System.out.println("No existe el color!");
 		}
+		innerButton.addActionListener((ActionListener) actionlistener);
 		innerButton.setOpaque(true);
 		innerButton.setBorder(customBorder);
 	}

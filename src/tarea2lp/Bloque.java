@@ -2,7 +2,6 @@ package tarea2lp;
 
 import javax.swing.border.Border;
 import java.awt.Color;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -11,7 +10,7 @@ public abstract class Bloque {
 	protected static Border baseBorder;
 	protected static Border lineBorder;
 	protected static Border customBorder;
-	protected static Object actionlistener;
+	public static Object actionlistener;
 
 	//no static
 	protected String color;
@@ -20,8 +19,8 @@ public abstract class Bloque {
 	protected int x;
 	protected int y;
 	
-	public void setActionListener(Object o) {
-		innerButton.addActionListener((ActionListener) o);
+	public static void setListener(Object o) {
+		actionlistener = o;
 	}
 	
 	public String getColor() {

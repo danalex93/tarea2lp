@@ -1,6 +1,7 @@
 package tarea2lp;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 
@@ -29,6 +30,7 @@ public class BloqueColor extends Bloque {
 		} catch (Exception e) {
 			System.out.println("No existe el color!");
 		}
+		innerButton.addActionListener((ActionListener) actionlistener);
 		innerButton.setOpaque(true);
 		innerButton.setBorder(customBorder);
 		

@@ -67,14 +67,13 @@ public class GameEngine implements ActionListener {
 		
 		boardGrid = new Bloque[height][width];
 		gui = new GUIEngine();
-		AbstractCreator.setListener(this);
+		Bloque.setListener(this);
 		int y, x;
 		y = 0; x = 0;
 		for (y = 0; y < height; y++) {
 			for ( x = 0; x < width; x++) {
 				boardGrid[y][x] = createBlock();
-				boardGrid[y][x].setCoords(x, y);
-				
+				boardGrid[y][x].setCoords(x, y);	
 			}
 		}
 		System.out.println(x + " " + y);
@@ -357,6 +356,7 @@ public class GameEngine implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		BlockButton button = (BlockButton) e.getSource();
+		System.out.println("awds");
 		Bloque bloque = boardGrid[button.y][button.x];
 		checkSwap(bloque);
 	}
