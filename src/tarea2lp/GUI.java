@@ -249,7 +249,6 @@ public class GUI implements ActionListener{
 				if (aux.getText().equals("-")){
 					continue;
 				}
-				System.out.println("x="+x+"y="+y);
 				
 				//Revisar siguiente
 				if (x+1 < 15){
