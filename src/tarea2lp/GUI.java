@@ -18,7 +18,7 @@ import java.lang.Math;
 
 
 public class GUI implements ActionListener{
-	JFrame frame = new JFrame();
+	JFrame frame = new JFrame("F*ckin' Block Crush - brought to you by @danalex93 & @nachoman");
 	BlockButton[][] grid;
 	private int joker;
 	static JButton firstButton;
@@ -136,8 +136,13 @@ public class GUI implements ActionListener{
 		button2.x = x2;
 		button2.y = y2;
 		frame.pack();
-		clearButtons(button1);
-		clearButtons(button2);
+		for (int y=0;y<15;y++){
+			for (int x=0;x<15;x++){
+				if ( (grid[y][x].getText().equals("-")) || (grid[y][x].getText().equals("$")) || (grid[y][x].getText().equals("&")) )
+					continue;
+				clearButtons(grid[y][x]);
+			}
+		}
 		frame.pack();
 		frame.setVisible(true);
 	}
