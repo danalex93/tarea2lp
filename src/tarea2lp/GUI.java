@@ -187,17 +187,19 @@ public class GUI implements ActionListener{
 				break;
 			}
 		}
-		// Eliminear iguales
+		// Eliminar iguales
 		// En X:
 		if (xplus-xminus>=2){
 			for (int i = xminus; i <= xplus; i++){
 				grid[j.y][i].setBackground(Color.WHITE);
+				grid[j.y][i].setText("-");
 			}
 		}
 		// En Y:
 		if (yplus-yminus>=2){
 			for (int i = yminus; i <= yplus; i++){
 				grid[i][j.x].setBackground(Color.WHITE);
+				grid[i][j.x].setText("-");
 			}
 		}
 	}
