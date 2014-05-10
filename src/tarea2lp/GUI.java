@@ -26,7 +26,7 @@ import java.lang.Math;
 
 
 public class GUI implements ActionListener{
-	static JFrame frame = new JFrame("Longaniza Crush - brought to you by @danalex93 & @nachoman");
+	static JFrame frame = new JFrame("Block Crush - brought to you by @danalex93 & @nachoman");
 	BlockButton[][] grid;
 	private int joker;
 	static JButton firstButton;
