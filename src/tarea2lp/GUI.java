@@ -137,8 +137,8 @@ public class GUI implements ActionListener{
 		button2.x = x2;
 		button2.y = y2;
 		frame.pack();
-		clearButtons(button1,x1,y1);
-		clearButtons(button2,x2,y2);
+		clearButtons(button1);
+		clearButtons(button2);
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -149,39 +149,39 @@ public class GUI implements ActionListener{
 	    return randomNum;
 	}
 	
-	public void clearButtons(JButton j, int x, int y){		
+	public void clearButtons(BlockButton j){		
 		// Chequear iguales
 		// En X:
-		int xplus = x, xminus = x;
-		int yplus = y, yminus = y;
-		for (int x1=(x+1);x1<15;x1++){
-			if (grid[x1][y].getText().equals(j.getText())){
-				xplus = x1;
-			}
-			else{
-				break;
-			}
-		}
-		for (int x2=(x-1);x2>=0;x2--){
-			if (grid[x2][y].getText().equals(j.getText())){
-				xminus = x2;
-			}
-			else{
-				break;
-			}
-		}
-		// En Y:		
-		for (int y1=(y+1);y1<15;y1++){
-			if (grid[x][y1].getText().equals(j.getText())){
+		int xplus = j.x, xminus = j.x;
+		int yplus = j.y, yminus = j.y;
+		for (int y1=(j.x+1);y1<15;y1++){
+			if (grid[y1][j.x].getText().equals(j.getText())){
 				yplus = y1;
 			}
 			else{
 				break;
 			}
 		}
-		for (int y2=(y-1);y2>=0;y2--){
-			if (grid[x][y2].getText().equals(j.getText())){
+		for (int y2=(j.x-1);y2>=0;y2--){
+			if (grid[y2][j.x].getText().equals(j.getText())){
 				yminus = y2;
+			}
+			else{
+				break;
+			}
+		}
+		// En Y:		
+		for (int x1=(j.x+1);x1<15;x1++){
+			if (grid[j.y][x1].getText().equals(j.getText())){
+				xplus = x1;
+			}
+			else{
+				break;
+			}
+		}
+		for (int x2=(j.x-1);x2>=0;x2--){
+			if (grid[j.y][x2].getText().equals(j.getText())){
+				xminus = x2;
 			}
 			else{
 				break;
@@ -191,13 +191,13 @@ public class GUI implements ActionListener{
 		// En X:
 		if (xplus-xminus>=2){
 			for (int i = xminus; i <= xplus; i++){
-				grid[i][y].setBackground(Color.WHITE);
+				grid[j.y][i].setBackground(Color.WHITE);
 			}
 		}
 		// En Y:
 		if (yplus-yminus>=2){
 			for (int i = yminus; i <= yplus; i++){
-				grid[x][i].setBackground(Color.WHITE);
+				grid[i][j.x].setBackground(Color.WHITE);
 			}
 		}
 	}
