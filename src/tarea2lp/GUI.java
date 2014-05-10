@@ -3,6 +3,7 @@ package tarea2lp;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -18,7 +19,7 @@ import java.lang.Math;
 
 
 public class GUI implements ActionListener{
-	JFrame frame = new JFrame("F*ckin' Block Crush - brought to you by @danalex93 & @nachoman");
+	JFrame frame = new JFrame("Longaniza Crush - brought to you by @danalex93 & @nachoman");
 	BlockButton[][] grid;
 	private int joker;
 	static JButton firstButton;
@@ -145,6 +146,10 @@ public class GUI implements ActionListener{
 		}
 		frame.pack();
 		frame.setVisible(true);
+		if (isGameOver()){
+			msgbox("Game Over!");
+			System.exit(0);
+		}
 	}
 	
 	public void swapWhite(int x1, int y1, int x2, int y2){
@@ -235,6 +240,112 @@ public class GUI implements ActionListener{
 				}
 			}
 		}
+	}
+	
+	public Boolean isGameOver(){
+		for (int y=14;y>=0;y--){
+			for (int x=0;x<15;x++){
+				BlockButton aux = grid[y][x];
+				if (aux.getText().equals("-")){
+					continue;
+				}
+				System.out.println("x="+x+"y="+y);
+				
+				//Revisar siguiente
+				if (x+1 < 15){
+					if (aux.getText().equals(grid[y][x+1].getText())){
+						if (x+3 < 15){ // Sub-subsiguiente
+							if (aux.getText().equals(grid[y][x+3].getText()))
+								return false;
+						}
+						if (x-2 >= 0){ // Ante-anterior
+							if (aux.getText().equals(grid[y][x-2].getText()))
+								return false;
+						}
+						if ((x+2 < 15) && (y-1 >= 0)){ //Subsiguiente-arriba
+							if (aux.getText().equals(grid[y-1][x+2].getText()))
+								return false;
+						}
+						if ((x+2 < 15) && (y+1 < 15)){ //Subsiguiente-abajo
+							if (aux.getText().equals(grid[y+1][x+2].getText()))
+								return false;
+						}
+						if ((x-1 >= 0) && (y-1 >= 0)){ //Anterior-arriba
+							if (aux.getText().equals(grid[y-1][x-1].getText()))
+								return false;
+						}
+						if ((x-1 >= 0) && (y+1 < 15)){//Anterior-abajo
+							if (aux.getText().equals(grid[y+1][x-1].getText()))
+								return false;
+						}
+					}
+				}
+				
+				//Revisar arriba
+				if (x+1 < 15){
+					if (aux.getText().equals(grid[y][x+1].getText())){
+						if (y-3 >= 0){ // Sup-supsuperior
+							if (aux.getText().equals(grid[y-3][x].getText()))
+								return false;
+						}
+						if (y+2 < 15){ // Inf-inferior
+							if (aux.getText().equals(grid[y+2][x].getText()))
+								return false;
+						}
+						if ((y-2 >= 0) && (x+1 < 15)){ //Sup-superior-derecha
+							if (aux.getText().equals(grid[y-2][x+1].getText()))
+								return false;
+						}
+						if ((y-2 >= 0) && (x-1 >= 0)){ //Sup-superior-izquierda
+							if (aux.getText().equals(grid[y-2][x-1].getText()))
+								return false;
+						}
+						if ((y+1 < 15) && (x+1 < 15)){ //Inferior-derecha
+							if (aux.getText().equals(grid[y+1][x+1].getText()))
+								return false;
+						}
+						if ((y+1 < 15) && (x-1 >= 0)){//Inferior-izquierda
+							if (aux.getText().equals(grid[y+1][x-1].getText()))
+								return false;
+						}
+					}
+				}
+				
+				//Revisar sub siguiente
+				if (x+2 < 15){
+					if (aux.getText().equals(grid[y][x+2])){
+						if ((y-1 >= 0) && (x+1 < 15)){ // derecha-arriba
+							if (aux.getText().equals(grid[y-1][x+1]))
+								return false;
+						}
+						if ((y+1 < 15) && (x+1 < 15)){ // derecha-abajo
+							if (aux.getText().equals(grid[y+1][x+1]))
+								return false;
+						}
+					}
+				}
+				
+				//Revisar sup superior
+				if (y-2 >= 0){
+					if (aux.getText().equals(grid[y-2][x])){
+						if ((y-1 >= 0) && (x+1 < 15)){ // arriba-derecha
+							if (aux.getText().equals(grid[y-1][x+1]))
+								return false;
+						}
+						if ((y-1 >= 0) && (x-1 >= 0)){ // arriba-izquerda
+							if (aux.getText().equals(grid[y-1][x-1]))
+								return false;
+						}
+					}
+				}
+				
+			}
+		}
+		return true;
+	}
+	
+	private void msgbox(String s){
+	   JOptionPane.showMessageDialog(null, s);
 	}
 
 	@Override
