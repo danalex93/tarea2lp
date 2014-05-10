@@ -154,16 +154,16 @@ public class GUI implements ActionListener{
 		// En X:
 		int xplus = j.x, xminus = j.x;
 		int yplus = j.y, yminus = j.y;
-		for (int y1=(j.x+1);y1<15;y1++){
-			if (grid[y1][j.x].getText().equals(j.getText())){
+		for (int y1=(j.y+1);y1<15;y1++){
+			if ( (grid[y1][j.x].getText().equals(j.getText())) || (grid[y1][j.x].getText().equals("$")) || (grid[y1][j.x].getText().equals("&")) ){
 				yplus = y1;
 			}
 			else{
 				break;
 			}
 		}
-		for (int y2=(j.x-1);y2>=0;y2--){
-			if (grid[y2][j.x].getText().equals(j.getText())){
+		for (int y2=(j.y-1);y2>=0;y2--){
+			if (grid[y2][j.x].getText().equals(j.getText()) || (grid[y2][j.x].getText().equals("$")) || (grid[y2][j.x].getText().equals("&")) ){
 				yminus = y2;
 			}
 			else{
@@ -172,7 +172,7 @@ public class GUI implements ActionListener{
 		}
 		// En Y:		
 		for (int x1=(j.x+1);x1<15;x1++){
-			if (grid[j.y][x1].getText().equals(j.getText())){
+			if (grid[j.y][x1].getText().equals(j.getText()) || (grid[j.y][x1].getText().equals("$")) || (grid[j.y][x1].getText().equals("&")) ){
 				xplus = x1;
 			}
 			else{
@@ -180,7 +180,7 @@ public class GUI implements ActionListener{
 			}
 		}
 		for (int x2=(j.x-1);x2>=0;x2--){
-			if (grid[j.y][x2].getText().equals(j.getText())){
+			if (grid[j.y][x2].getText().equals(j.getText()) || (grid[j.y][x2].getText().equals("$")) || (grid[j.y][x2].getText().equals("&")) ){
 				xminus = x2;
 			}
 			else{
