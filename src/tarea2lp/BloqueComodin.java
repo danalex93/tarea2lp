@@ -43,7 +43,7 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 	}
 	
 	public void setDummy() {
-		innerButton.setName("-");
+		innerButton.setText("-");
 		innerButton.setBackground(Color.WHITE);
 		color = "-";
 	}
@@ -51,7 +51,7 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 	public void setColor(String color) {
 		try {
 			Object[] values = buttons.get(color);
-			innerButton.setName((String) values[0]);
+			innerButton.setText((String) values[0]);
 			innerButton.setBackground((Color) values[1]);
 			this.color = color;
 		} catch (Exception e) {

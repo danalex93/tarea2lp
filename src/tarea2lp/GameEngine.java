@@ -91,6 +91,8 @@ public class GameEngine implements ActionListener {
 			(Math.abs(bloque.y-prevBlock.y) == 1) && (bloque.x == prevBlock.x)) {
 			swapButton(bloque, prevBlock);
 			blockSelected = false;
+		} else {
+			blockSelected = false;
 		}
 	}
 	
@@ -106,7 +108,7 @@ public class GameEngine implements ActionListener {
 		
 		bloque1.setCoords(bloque2.getX(), bloque2.getY());
 		bloque2.setCoords(auxX, auxY);
-		
+		/*
 		for (int y=0;y<height;y++){
 			for (int x=0;x<width;x++){
 				if ((boardGrid[y][x].getColor().equals("-")) || 
@@ -123,7 +125,7 @@ public class GameEngine implements ActionListener {
 		if (isGameOver()){
 			gui.msgbox("Game Over!");
 			System.exit(0);
-		}
+		} */
 		
 	}
 	
