@@ -62,8 +62,8 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 	public void setCoords(int x, int y) {
 		this.x = x;
 		this.y = y;
-		innerButton.x = x;
-		innerButton.y = y;
+		innerButton.xCoord = x;
+		innerButton.yCoord = y;
 	}
 	
 	public int getX() {

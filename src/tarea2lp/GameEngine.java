@@ -108,6 +108,8 @@ public class GameEngine implements ActionListener {
 		
 		bloque1.setCoords(bloque2.getX(), bloque2.getY());
 		bloque2.setCoords(auxX, auxY);
+		System.out.println(bloque1.x+", "+ bloque1.y);
+		System.out.println(bloque2.x+", "+ bloque2.y);
 		/*
 		for (int y=0;y<height;y++){
 			for (int x=0;x<width;x++){
@@ -359,7 +361,8 @@ public class GameEngine implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		BlockButton button = (BlockButton) e.getSource();
 		System.out.println("awds");
-		Bloque bloque = boardGrid[button.y][button.x];
+		Bloque bloque = boardGrid[button.yCoord][button.xCoord];
+		System.out.println(button.xCoord+", "+ button.yCoord);
 		checkSwap(bloque);
 	}
 
