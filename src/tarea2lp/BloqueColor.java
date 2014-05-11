@@ -1,5 +1,6 @@
 package tarea2lp;
 
+@SuppressWarnings("serial")
 public class BloqueColor extends Bloque {
 	public String color;
 

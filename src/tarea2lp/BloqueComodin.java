@@ -1,5 +1,6 @@
 package tarea2lp;
 
+@SuppressWarnings("serial")
 public class BloqueComodin extends Bloque implements HabilityBehavior{
 	public HabilityBehavior habilidad;
 

@@ -49,24 +49,36 @@ public class GUI implements ActionListener{
 	// Estadisticas de juego
 	private static Integer[] estadisticas = {0,0,0,0,0};//R,B,O,G,Y
 	private static JLabel[] estadisticasLabel = new JLabel[5];
+	private static Integer bloquesFaltantes = 300;
+	private static JLabel faltantesLabel = new JLabel("300");
 
 	public static void initEstadisticasLabel() {
-		estadisticasLabel[0] = new JLabel("R: "+estadisticas[0]);
-		estadisticasLabel[1] = new JLabel("B: "+estadisticas[1]);
-		estadisticasLabel[2] = new JLabel("O: "+estadisticas[2]);
-		estadisticasLabel[3] = new JLabel("G: "+estadisticas[3]);
-		estadisticasLabel[4] = new JLabel("Y: "+estadisticas[4]);
-		for(int i=0;i<5;i++){
-			frame.add(estadisticasLabel[i]);
-		}
+		estadisticasLabel[0] = new JLabel(estadisticas[0].toString());
+		estadisticasLabel[1] = new JLabel(estadisticas[1].toString());
+		estadisticasLabel[2] = new JLabel(estadisticas[2].toString());
+		estadisticasLabel[3] = new JLabel(estadisticas[3].toString());
+		estadisticasLabel[4] = new JLabel(estadisticas[4].toString());
+		frame.add(new JLabel("R->"));
+		frame.add(estadisticasLabel[0]);
+		frame.add(new JLabel("B->"));
+		frame.add(estadisticasLabel[1]);
+		frame.add(new JLabel("O->"));
+		frame.add(estadisticasLabel[2]);
+		frame.add(new JLabel("G->"));
+		frame.add(estadisticasLabel[3]);
+		frame.add(new JLabel("Y->"));
+		frame.add(estadisticasLabel[4]);
+		frame.add(new JLabel("L->"));
+		frame.add(faltantesLabel);
 	}
 	
 	public static void setEstadisticasLabel(){
-		estadisticasLabel[0].setText("R: "+estadisticas[0]);
-		estadisticasLabel[1].setText("B: "+estadisticas[1]);
-		estadisticasLabel[2].setText("O: "+estadisticas[2]);
-		estadisticasLabel[3].setText("G: "+estadisticas[3]);
-		estadisticasLabel[4].setText("Y: "+estadisticas[4]);
+		estadisticasLabel[0].setText(estadisticas[0].toString());
+		estadisticasLabel[1].setText(estadisticas[1].toString());
+		estadisticasLabel[2].setText(estadisticas[2].toString());
+		estadisticasLabel[3].setText(estadisticas[3].toString());
+		estadisticasLabel[4].setText(estadisticas[4].toString());
+		faltantesLabel.setText(bloquesFaltantes.toString());
 	}
 	
 	@SuppressWarnings("serial")
@@ -178,10 +190,58 @@ public class GUI implements ActionListener{
 		fillWhites();
 		frame.pack();
 		frame.setVisible(true);
-		if (isGameOver()){
-			msgbox("Game Over!");
+		if (bloquesFaltantes <= 0){
+			msgbox("Congratulations, you Win! Game Over!");
 			System.exit(0);
 		}
+		else{
+			if (isGameOver()){
+				msgbox("Grid reordered!");
+				nuevoGrid();
+			}
+		}
+	}
+	
+	public void nuevoGrid(){
+		try {
+			//temas de compatibilidad para los botones
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (Exception e) { }
+		//aqui se agrega cada boton a un hashmap
+		//con esto se simplifican las llamadas a los botones
+		//y se asocia cada label del boton a su color
+		normalButtons.put("R", Color.RED);
+		normalButtons.put("B", Color.BLUE);
+		normalButtons.put("O", Color.ORANGE);
+		normalButtons.put("G", Color.GREEN);
+		normalButtons.put("Y", Color.YELLOW);
+		bonusButtons.put("$", Color.MAGENTA);
+		bonusButtons.put("&", Color.CYAN);
+		allButtons.putAll(normalButtons);
+		allButtons.putAll(bonusButtons);
+		buttonSelected = false;
+		
+		frame.setLayout(new GridLayout(15+1, 15));
+		grid = new BlockButton[15][15];
+		String auxkey;
+		
+		for (int y = 0; y < 15; y++) {
+			for (int x = 0; x < 15; x++) {
+				joker = randInt(0, 100);
+				if (joker < nbpercent) {
+					auxkey = randKey(normalButtons);
+				} else {
+					auxkey = randKey(bonusButtons);
+				}
+				grid[y][x] = createButton(auxkey, x, y);
+				frame.add(grid[y][x]);
+			}
+		}
+		initEstadisticasLabel();
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
 	}
 	
 	public void swapWhite(int x1, int y1, int x2, int y2){
@@ -294,6 +354,7 @@ public class GUI implements ActionListener{
 		else if (colour.equals("Y")){
 			estadisticas[4] += total;
 		}
+		bloquesFaltantes -= total;
 		setEstadisticasLabel();
 	}
 	
