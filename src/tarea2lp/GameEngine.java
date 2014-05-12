@@ -132,6 +132,7 @@ public class GameEngine implements ActionListener {
 		bloque1.setButton(button2);
 		bloque2.setButton(button1);
 		
+		Boolean check = false;
 		
 		for (int y=0;y<height;y++){
 			for (int x=0;x<width;x++){
@@ -140,17 +141,64 @@ public class GameEngine implements ActionListener {
 					(boardGrid[y][x].getColor().equals("&"))) {
 					continue;
 				}
-				clearButtons(boardGrid[y][x]);
+				if (!check){
+					check = clearButtons(boardGrid[y][x]);
+				}
+				else{
+					clearButtons(boardGrid[y][x]);
+				}
 			}
-		} 
-		
-		if (isGameOver()){
-			gui.msgbox("Game Over!");
-			System.exit(0);
 		}
-		fillWhites();
-		gui.updateGrid();
+	
+		if (check){
+			fillWhites();
+			gui.updateGrid();
+			if (restantes <= 0){
+				gui.msgbox("Congratulations! You WIN!");
+				System.exit(0);
+			}
+			else{
+				if (isGameOver()){
+					gui.msgbox("Game Over!");
+				}
+			}
+		}
+		else{
+			fakeSwapButton(bloque1,bloque2);
+		}
 		
+	}
+	
+	public void fakeSwapButton(Bloque bloque1, Bloque bloque2) {
+		int auxX, auxY;
+		boardGrid[bloque1.y][bloque1.x] = bloque2;
+		boardGrid[bloque2.y][bloque2.x] = bloque1;
+		
+
+		auxX = bloque1.x; auxY = bloque1.y;
+		bloque1.setCoords(bloque2.x, bloque2.y);
+		bloque2.setCoords(auxX, auxY);
+		
+		BlockButton button1 = bloque1.getButton();
+		BlockButton button2 = bloque2.getButton();
+		
+		Color auxbackground = button1.getBackground();
+		String auxtext = button1.getText();
+		
+		button1.setText(button2.getText());
+		button1.setBackground(button2.getBackground());
+		button2.setText(auxtext);
+		button2.setBackground(auxbackground);
+		auxX = button1.xCoord;
+		auxY = button1.yCoord;
+		button1.xCoord = button2.xCoord;
+		button1.yCoord = button2.yCoord;
+		button2.xCoord = auxX;
+		button2.yCoord = auxY;
+		
+		bloque1.setButton(button2);
+		bloque2.setButton(button1);
+		gui.updateGrid();
 	}
 	
 	public void swapWhite(Bloque bloque1, Bloque bloque2){
@@ -313,7 +361,7 @@ public class GameEngine implements ActionListener {
 		return true;
 	}
 	
-	public void clearButtons(Bloque bloque){
+	public Boolean clearButtons(Bloque bloque){
 		// Chequear iguales
 		// En X:
 		String colour = bloque.getColor();
@@ -380,6 +428,7 @@ public class GameEngine implements ActionListener {
 		}
 		// Eliminar iguales
 		Integer total = 0;
+		Boolean check = false;
 		
 		// En X:
 		if (xplus-xminus>=2){
@@ -392,6 +441,7 @@ public class GameEngine implements ActionListener {
 				}
 			}
 			total += (xplus-xminus) + 1;
+			check = true;
 		}
 		// En Y:
 		if (yplus-yminus>=2){
@@ -405,6 +455,7 @@ public class GameEngine implements ActionListener {
 				}	
 			}
 			total += (yplus-yminus) + 1;
+			check = true;
 		}
 		
 		//R,B,O,G,Y
@@ -425,6 +476,7 @@ public class GameEngine implements ActionListener {
 		}
 		restantes -= total;
 		setEstadisticasLabel();
+		return check;
 	}
 
 
