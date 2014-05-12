@@ -1,9 +1,9 @@
 package tarea2lp;
 
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import java.util.Random;
 
 import javax.swing.JLabel;
@@ -103,22 +103,36 @@ public class GameEngine implements ActionListener {
 	}
 	
 	public void swapButton(Bloque bloque1, Bloque bloque2) {
-		String auxcolor;
-		auxcolor = bloque1.getColor();
+		int auxX, auxY;
+				boardGrid[bloque1.y][bloque1.x] = bloque2;
+		boardGrid[bloque2.y][bloque2.x] = bloque1;
 		
-		bloque1.setColor(bloque2.getColor());
-		bloque2.setColor(auxcolor);
+
+		auxX = bloque1.x; auxY = bloque1.y;
+		bloque1.setCoords(bloque2.x, bloque2.y);
+		bloque2.setCoords(auxX, auxY);
 		
-		for (int y=0;y<height;y++){
-			for (int x=0;x<width;x++){
-				if ((boardGrid[y][x].getColor().equals("-")) || 
-					(boardGrid[y][x].getColor().equals("$")) || 
-					(boardGrid[y][x].getColor().equals("&"))) {
-					continue;
-				}
-				clearButtons(boardGrid[y][x]);
-			}
-		}
+		BlockButton button1 = bloque1.getButton();
+		BlockButton button2 = bloque2.getButton();
+		
+		Color auxbackground = button1.getBackground();
+		String auxtext = button1.getText();
+		
+		button1.setText(button2.getText());
+		button1.setBackground(button2.getBackground());
+		button2.setText(auxtext);
+		button2.setBackground(auxbackground);
+		auxX = button1.xCoord;
+		auxY = button1.yCoord;
+		button1.xCoord = button2.xCoord;
+		button1.yCoord = button2.yCoord;
+		button2.xCoord = auxX;
+		button2.yCoord = auxY;
+		
+		bloque1.setButton(button2);
+		bloque2.setButton(button1);
+		
+
 		//fillWhites();
 		gui.updateGrid();
 		
@@ -130,8 +144,36 @@ public class GameEngine implements ActionListener {
 	}
 	
 	public void swapWhite(Bloque bloque1, Bloque bloque2){
-		bloque1.setColor(bloque2.getColor());
-		bloque2.setDummy();
+
+		int auxX, auxY;
+		
+
+		boardGrid[bloque1.y][bloque1.x] = bloque2;
+		boardGrid[bloque2.y][bloque2.x] = bloque1;
+		
+		auxX = bloque1.x; auxY = bloque1.y;
+		bloque1.setCoords(bloque2.x, bloque2.y);
+		bloque2.setCoords(auxX, auxY);
+		
+		BlockButton button1 = bloque1.getButton();
+		BlockButton button2 = bloque2.getButton();
+		
+		button1.setText(button2.getText());
+		button1.setBackground(button2.getBackground());
+		button2.setText("-");
+		button2.setBackground(Color.WHITE);
+		auxX = button1.xCoord;
+		auxY = button1.yCoord;
+		button1.xCoord = button2.xCoord;
+		button1.yCoord = button2.yCoord;
+		button2.xCoord = auxX;
+		button2.yCoord = auxY;
+		
+		bloque1.setButton(button2);
+		bloque2.setButton(button1);
+		
+		
+		
 		gui.updateGrid();
 	}
 	

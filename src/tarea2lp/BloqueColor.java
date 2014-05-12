@@ -40,6 +40,7 @@ public class BloqueColor extends Bloque {
 	public String getColor() {
 		return color;
 	}
+
 	
 	public void setButton(BlockButton b) {
 		innerButton = b;
