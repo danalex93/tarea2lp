@@ -21,6 +21,11 @@ public class BloqueColor extends Bloque {
 		};
 	};
 
+	/******** Funcion: BloqueColor **************
+	Descripcion: Constructor de un nuevo bloque color
+	Parametros:
+	Retorno: nada
+	************************************************/
 	public BloqueColor() {
 		String colorName = randKey(buttons);
 		try {
@@ -36,25 +41,51 @@ public class BloqueColor extends Bloque {
 		
 	}
 	
+	/******** Funcion: getColor **************
+	Descripcion: Retorna el color de un bloque
+	Parametros:
+	Retorno: Retorna el color de un bloque
+	************************************************/
 	public String getColor() {
 		return color;
 	}
-
 	
+	/******** Funcion: setButton **************
+	Descripcion: Le asigna un boton a un bloque
+	Parametros:
+	BlockButton b
+	Retorno: void
+	************************************************/
 	public void setButton(BlockButton b) {
 		innerButton = b;
 	}
 	
+	/******** Funcion: getButton **************
+	Descripcion: Retorna el boton de n bloque
+	Parametros:
+	Retorno: void
+	************************************************/
 	public BlockButton getButton() {
 		return innerButton;
 	}
 	
+	/******** Funcion: setDummy **************
+	Descripcion: Funcion Equivalente a destruirBloque;
+	Parametros:
+	Retorno: void
+	************************************************/
 	public void setDummy() {
 		innerButton.setText("-");
 		innerButton.setBackground(Color.WHITE);
 		color = "-";
 	}
 
+	/******** Funcion: setColor **************
+	Descripcion: Asigna un color al bloque
+	Parametros:
+	String color
+	Retorno: void
+	************************************************/
 	public void setColor(String color) {
 		try {
 			Object[] values = buttons.get(color);
@@ -65,6 +96,13 @@ public class BloqueColor extends Bloque {
 		}
 	}
 	
+	/******** Funcion: setCoords **************
+	Descripcion: Asigna coordenadas a un bloque
+	Parametros:
+	int x
+	int y
+	Retorno: void
+	************************************************/
 	public void setCoords(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -72,10 +110,20 @@ public class BloqueColor extends Bloque {
 		innerButton.yCoord = y;
 	}
 	
+	/******** Funcion: getX **************
+	Descripcion: retorna la coordenada x del bloque
+	Parametros:
+	Retorno: int con la coordenada x
+	************************************************/
 	public int getX() {
 		return this.x;
 	}
 	
+	/******** Funcion: getY **************
+	Descripcion: retorna la coordenada y del bloque
+	Parametros:
+	Retorno: int con la coordenada y
+	************************************************/
 	public int getY() {
 		return this.y;
 	}
@@ -87,9 +135,4 @@ public class BloqueColor extends Bloque {
 		return randomKey;
 	}
 
-	@Override
-	public void destruirBloque() {
-		// Limpiar en pantalla y borrar referencia
-	}
-	
 }

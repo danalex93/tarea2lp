@@ -17,37 +17,79 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 		};
 	};
 
+	/******** Funcion: getHabilidad **************
+	Descripcion: Retorna la habilidad de un bloque comodin
+	Parametros:
+	Retorno: Retorna un HabilityBehavior con la habilidad
+	************************************************/
 	public HabilityBehavior getHabilidad() {
 		return habilidad;
 	}
 
+	/******** Funcion: setHabilidad **************
+	Descripcion: Asigna una habilidad a un bloquecolor
+	Parametros:
+	HabilityBehavior habilidad
+	Retorno: void
+	************************************************/
 	public void setHabilidad(HabilityBehavior habilidad) {
 		this.habilidad = habilidad;
 	}
 
+	/******** Funcion: Habilidad **************
+	Descripcion: Llama a la habilidad del bloque
+	Parametros:
+	Retorno: void
+	************************************************/
 	@Override
 	public void Habilidad() {
 		this.habilidad.Habilidad();
 	}
-	
+	/******** Funcion: getColor **************
+	Descripcion: Retorna el color de un bloque
+	Parametros:
+	Retorno: Retorna el color de un bloque
+	************************************************/
 	public String getColor() {
 		return color;
 	}
 	
+	/******** Funcion: setButton **************
+	Descripcion: Le asigna un boton a un bloque
+	Parametros:
+	BlockButton b
+	Retorno: void
+	************************************************/
 	public void setButton(BlockButton b) {
 		innerButton = b;
 	}
 	
+	/******** Funcion: getButton **************
+	Descripcion: Retorna el boton de n bloque
+	Parametros:
+	Retorno: void
+	************************************************/
 	public BlockButton getButton() {
 		return innerButton;
 	}
 	
+	/******** Funcion: setDummy **************
+	Descripcion: Funcion Equivalente a destruirBloque;
+	Parametros:
+	Retorno: void
+	************************************************/
 	public void setDummy() {
 		innerButton.setText("-");
 		innerButton.setBackground(Color.WHITE);
 		color = "-";
 	}
-
+	
+	/******** Funcion: setColor **************
+	Descripcion: Asigna un color al bloque
+	Parametros:
+	String color
+	Retorno: void
+	************************************************/
 	public void setColor(String color) {
 		try {
 			Object[] values = buttons.get(color);
@@ -57,18 +99,35 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 		} catch (Exception e) {
 		}
 	}
-	
+
+	/******** Funcion: setCoords **************
+	Descripcion: Asigna coordenadas a un bloque
+	Parametros:
+	int x
+	int y
+	Retorno: void
+	************************************************/
 	public void setCoords(int x, int y) {
 		this.x = x;
 		this.y = y;
 		innerButton.xCoord = x;
 		innerButton.yCoord = y;
 	}
-	
+
+	/******** Funcion: getX **************
+	Descripcion: retorna la coordenada x del bloque
+	Parametros:
+	Retorno: int con la coordenada x
+	************************************************/
 	public int getX() {
 		return this.x;
 	}
 	
+	/******** Funcion: getY **************
+	Descripcion: retorna la coordenada y del bloque
+	Parametros:
+	Retorno: int con la coordenada y
+	************************************************/
 	public int getY() {
 		return this.y;
 	}
@@ -80,6 +139,11 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 		return randomKey;
 	}
 	
+	/******** Funcion: BloqueComodin **************
+	Descripcion: constructor de un bloque comodin
+	Parametros:
+	Retorno: 
+	************************************************/
 	public BloqueComodin() {
 		String colorName = randKey(buttons);
 		
@@ -99,10 +163,5 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 		innerButton.addActionListener((ActionListener) actionlistener);
 		innerButton.setOpaque(true);
 		innerButton.setBorder(customBorder);
-	}
-
-	@Override
-	public void destruirBloque() {
-		// Limpiar en pantalla y borrar referencia
 	}
 }

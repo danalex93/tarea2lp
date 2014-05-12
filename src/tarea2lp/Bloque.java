@@ -29,6 +29,4 @@ public abstract class Bloque {
 	public abstract int getX();
 	public abstract int getY();
 	protected abstract String randKey(HashMap<String, Object[]> hm);
-
-	public abstract void destruirBloque();
 }
