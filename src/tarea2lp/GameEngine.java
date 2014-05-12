@@ -104,7 +104,7 @@ public class GameEngine implements ActionListener {
 	
 	public void swapButton(Bloque bloque1, Bloque bloque2) {
 		int auxX, auxY;
-				boardGrid[bloque1.y][bloque1.x] = bloque2;
+		boardGrid[bloque1.y][bloque1.x] = bloque2;
 		boardGrid[bloque2.y][bloque2.x] = bloque1;
 		
 
@@ -148,7 +148,7 @@ public class GameEngine implements ActionListener {
 			gui.msgbox("Game Over!");
 			System.exit(0);
 		}
-		//fillWhites();
+		fillWhites();
 		gui.updateGrid();
 		
 	}
@@ -194,11 +194,19 @@ public class GameEngine implements ActionListener {
 	}
 	
 	public void fillWhites() {
+		Bloque newBloque, bloque;
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				if (boardGrid[y][x].getColor().equals("-")){
-					boardGrid[y][x] = createBlock();
-					boardGrid[y][x].setCoords(x, y);
+				if (boardGrid[y][x].getButton().getText().equals("-")){
+					newBloque = createBlock();
+					bloque = boardGrid[y][x];
+					BlockButton button1 = bloque.getButton();
+					BlockButton button2 = newBloque.getButton();
+					button1.setText(button2.getText());
+					button1.setBackground(button2.getBackground());
+					newBloque.setButton(button1);
+					newBloque.setCoords(x,y);
+					boardGrid[y][x] = newBloque;
 				}
 			}
 		}
