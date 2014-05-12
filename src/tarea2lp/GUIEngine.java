@@ -2,6 +2,7 @@ package tarea2lp;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -63,10 +64,12 @@ public class GUIEngine {
 		Bloque.customBorder = new CompoundBorder(Bloque.lineBorder, Bloque.baseBorder); 
 		
 		frame.setLayout(new GridLayout(height+1, width));
+		
 		//loadGrid(initialGrid);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
+		frame.setPreferredSize(new Dimension(600, 640));
 	}
 	
 	

@@ -171,6 +171,7 @@ public class GameEngine implements ActionListener {
 		button1.setText(button2.getText());
 		button1.setBackground(button2.getBackground());
 		button2.setText("-");
+		bloque2.color = "-";
 		button2.setBackground(Color.WHITE);
 		auxX = button1.xCoord;
 		auxY = button1.yCoord;
