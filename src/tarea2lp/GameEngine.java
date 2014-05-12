@@ -132,25 +132,18 @@ public class GameEngine implements ActionListener {
 		bloque1.setButton(button2);
 		bloque2.setButton(button1);
 		
-		Boolean check = false;
-		
-		for (int y=0;y<height;y++){
-			for (int x=0;x<width;x++){
-				if ((boardGrid[y][x].getColor().equals("-")) || 
-					(boardGrid[y][x].getColor().equals("$")) || 
-					(boardGrid[y][x].getColor().equals("&"))) {
-					continue;
-				}
-				if (!check){
-					check = clearButtons(boardGrid[y][x]);
-				}
-				else{
+		if (clearButtons(bloque1) || clearButtons(bloque2)){
+			for (int y=0;y<height;y++){
+				for (int x=0;x<width;x++){
+					if ((boardGrid[y][x].getColor().equals("-")) || 
+						(boardGrid[y][x].getColor().equals("$")) || 
+						(boardGrid[y][x].getColor().equals("&"))) {
+						continue;
+					}
 					clearButtons(boardGrid[y][x]);
 				}
 			}
-		}
-	
-		if (check){
+
 			fillWhites();
 			gui.updateGrid();
 			if (restantes <= 0){
@@ -166,7 +159,6 @@ public class GameEngine implements ActionListener {
 		else{
 			fakeSwapButton(bloque1,bloque2);
 		}
-		
 	}
 	
 	public void fakeSwapButton(Bloque bloque1, Bloque bloque2) {
