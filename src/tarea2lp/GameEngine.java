@@ -344,7 +344,7 @@ public class GameEngine implements ActionListener {
 		// En Y:		
 		for (int x1=(bloque.x+1);x1<height;x1++){
 			if ((boardGrid[bloque.y][x1].getColor().equals(bonus1)) || (boardGrid[bloque.y][x1].getColor().equals(bonus2))){
-				BloqueComodin auxblock = (BloqueComodin) boardGrid[bloque.y][bloque.x];
+				BloqueComodin auxblock = (BloqueComodin) boardGrid[bloque.y][x1];
 				auxblock.habilidad.Habilidad();
 				xplus = 14;
 				break;
@@ -358,7 +358,7 @@ public class GameEngine implements ActionListener {
 		}
 		for (int x2=(bloque.x-1);x2>=0;x2--){
 			if ((boardGrid[bloque.y][x2].getColor().equals(bonus1)) || (boardGrid[bloque.y][x2].getColor().equals(bonus2))){
-				BloqueComodin auxblock = (BloqueComodin) boardGrid[bloque.y][bloque.x];
+				BloqueComodin auxblock = (BloqueComodin) boardGrid[bloque.y][x2];
 				auxblock.habilidad.Habilidad();
 				xminus = 0;
 				break;
