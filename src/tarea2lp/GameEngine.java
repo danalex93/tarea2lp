@@ -132,14 +132,24 @@ public class GameEngine implements ActionListener {
 		bloque1.setButton(button2);
 		bloque2.setButton(button1);
 		
-
-		//fillWhites();
-		gui.updateGrid();
+		
+		for (int y=0;y<height;y++){
+			for (int x=0;x<width;x++){
+				if ((boardGrid[y][x].getColor().equals("-")) || 
+					(boardGrid[y][x].getColor().equals("$")) || 
+					(boardGrid[y][x].getColor().equals("&"))) {
+					continue;
+				}
+				clearButtons(boardGrid[y][x]);
+			}
+		} 
 		
 		if (isGameOver()){
 			gui.msgbox("Game Over!");
 			System.exit(0);
 		}
+		//fillWhites();
+		gui.updateGrid();
 		
 	}
 	

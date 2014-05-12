@@ -27,7 +27,7 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 
 	@Override
 	public void Habilidad() {
-		this.habilidad.Habilidad(this,actionlistener);
+		this.habilidad.Habilidad();
 	}
 	
 	public String getColor() {
