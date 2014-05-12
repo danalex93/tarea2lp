@@ -55,7 +55,6 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 			innerButton.setBackground((Color) values[1]);
 			this.color = color;
 		} catch (Exception e) {
-			System.out.println("No existe el color!");
 		}
 	}
 	
@@ -90,7 +89,6 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 			innerButton.setBackground((Color) values[1]);
 			this.color = colorName;
 		} catch (Exception e) {
-			System.out.println("No existe el color!");
 		}
 		if (colorName.equals("1")){
 			this.habilidad = new HabilityT1(this,actionlistener);

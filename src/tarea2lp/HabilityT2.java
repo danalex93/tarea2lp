@@ -21,7 +21,6 @@ public class HabilityT2 implements HabilityBehavior {
 		for (int y=0;y<15;y++){
 			engine.boardGrid[y][block.x].setDummy();
 		}
-		//engine.fillWhites();
 	}
 }
 

@@ -80,7 +80,6 @@ public class GameEngine implements ActionListener {
 				boardGrid[y][x].setCoords(x, y);	
 			}
 		}
-		System.out.println(x + " " + y);
 		gui.loadGrid(boardGrid);
 		initEstadisticasLabel();
 		gui.updateGrid();
@@ -476,9 +475,7 @@ public class GameEngine implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		BlockButton button = (BlockButton) e.getSource();
-		System.out.println("awds");
 		Bloque bloque = boardGrid[button.yCoord][button.xCoord];
-		System.out.println(button.xCoord+", "+ button.yCoord);
 		checkSwap(bloque);
 	}
 

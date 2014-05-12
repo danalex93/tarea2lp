@@ -29,7 +29,6 @@ public class BloqueColor extends Bloque {
 			innerButton.setBackground((Color) values[1]);
 			this.color = colorName;
 		} catch (Exception e) {
-			System.out.println("No existe el color!");
 		}
 		innerButton.addActionListener((ActionListener) actionlistener);
 		innerButton.setOpaque(true);
@@ -63,7 +62,6 @@ public class BloqueColor extends Bloque {
 			innerButton.setBackground((Color) values[1]);
 			this.color = color;
 		} catch (Exception e) {
-			System.out.println("No existe el color!");
 		}
 	}
 	

@@ -24,6 +24,5 @@ public class HabilityT1 implements HabilityBehavior {
 				engine.swapWhite(engine.boardGrid[y][x],engine.boardGrid[y-1][x]);
 			}
 		}
-		//engine.fillWhites();
 	}
 }
