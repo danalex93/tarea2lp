@@ -27,7 +27,7 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 
 	@Override
 	public void Habilidad() {
-		this.habilidad.Habilidad();
+		this.habilidad.Habilidad(this,actionlistener);
 	}
 	
 	public String getColor() {
@@ -91,6 +91,12 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 			this.color = colorName;
 		} catch (Exception e) {
 			System.out.println("No existe el color!");
+		}
+		if (colorName.equals("1")){
+			this.habilidad = new HabilityT1(this,actionlistener);
+		}
+		else{
+			this.habilidad = new HabilityT2(this,actionlistener);
 		}
 		innerButton.addActionListener((ActionListener) actionlistener);
 		innerButton.setOpaque(true);

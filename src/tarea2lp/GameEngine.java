@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 
 
 public class GameEngine implements ActionListener {
-	private Bloque[][] boardGrid;
+	Bloque[][] boardGrid;
 	int breakPercent = 95;
 	private static final ColorCreator colorFactory = new ColorCreator();
 	private static final ComodinCreator comodinFactory = new ComodinCreator();
@@ -24,6 +24,8 @@ public class GameEngine implements ActionListener {
 	// Estadisticas de juego
 	private static Integer[] estadisticas = {0,0,0,0,0};//R,B,O,G,Y
 	private static JLabel[] estadisticasLabel = new JLabel[5];
+	private static Integer restantes = 300;
+	private static JLabel restantesLabel = new JLabel("L: "+restantes.toString());
 
 	
 	public Bloque createBlock() {
@@ -51,6 +53,7 @@ public class GameEngine implements ActionListener {
 		estadisticasLabel[3] = new JLabel("G: "+estadisticas[3]);
 		estadisticasLabel[4] = new JLabel("Y: "+estadisticas[4]);
 		gui.addComponent(estadisticasLabel);
+		gui.addComponent(restantesLabel);
 	}
 	
 	private void setEstadisticasLabel(){
@@ -59,6 +62,7 @@ public class GameEngine implements ActionListener {
 		estadisticasLabel[2].setText("O: "+estadisticas[2]);
 		estadisticasLabel[3].setText("G: "+estadisticas[3]);
 		estadisticasLabel[4].setText("Y: "+estadisticas[4]);
+		restantesLabel.setText("L: "+restantes.toString());
 	}
 	
 	public GameEngine() {
@@ -87,30 +91,24 @@ public class GameEngine implements ActionListener {
 		if (!blockSelected) {
 			prevBlock = bloque;
 			blockSelected = true;
-		} else if ((Math.abs(bloque.x-prevBlock.x) == 1 && (bloque.y == prevBlock.y)) ||
-			(Math.abs(bloque.y-prevBlock.y) == 1) && (bloque.x == prevBlock.x)) {
+		} else if (((Math.abs(bloque.x-prevBlock.x)== 1) && (bloque.y == prevBlock.y)) ||
+			((Math.abs(bloque.y-prevBlock.y) == 1) && (bloque.x == prevBlock.x))) {
 			swapButton(bloque, prevBlock);
 			blockSelected = false;
+			prevBlock = null;
 		} else {
 			blockSelected = false;
+			prevBlock = null;
 		}
 	}
 	
 	public void swapButton(Bloque bloque1, Bloque bloque2) {
 		String auxcolor;
-		int auxX, auxY;
-		auxX = bloque1.x;
-		auxY = bloque1.y;
 		auxcolor = bloque1.getColor();
 		
 		bloque1.setColor(bloque2.getColor());
 		bloque2.setColor(auxcolor);
 		
-		bloque1.setCoords(bloque2.getX(), bloque2.getY());
-		bloque2.setCoords(auxX, auxY);
-		System.out.println(bloque1.x+", "+ bloque1.y);
-		System.out.println(bloque2.x+", "+ bloque2.y);
-		/*
 		for (int y=0;y<height;y++){
 			for (int x=0;x<width;x++){
 				if ((boardGrid[y][x].getColor().equals("-")) || 
@@ -121,30 +119,20 @@ public class GameEngine implements ActionListener {
 				clearButtons(boardGrid[y][x]);
 			}
 		}
-		fillWhites();
+		//fillWhites();
 		gui.updateGrid();
 		
 		if (isGameOver()){
 			gui.msgbox("Game Over!");
 			System.exit(0);
-		} */
+		}
 		
 	}
 	
 	public void swapWhite(Bloque bloque1, Bloque bloque2){
-		int auxX, auxY;
-		auxX = bloque1.x;
-		auxY = bloque1.y;
-		
 		bloque1.setColor(bloque2.getColor());
 		bloque2.setDummy();
-
-		bloque1.setCoords(bloque2.getX(), bloque2.getY());
-		bloque2.setCoords(auxX, auxY);
-		
 		gui.updateGrid();
-		//frame.pack();
-		//frame.setVisible(true);
 	}
 	
 	public static int randInt(int min, int max) {
@@ -265,8 +253,6 @@ public class GameEngine implements ActionListener {
 		return true;
 	}
 	
-	
-	
 	public void clearButtons(Bloque bloque){
 		// Chequear iguales
 		// En X:
@@ -276,7 +262,13 @@ public class GameEngine implements ActionListener {
 		int xplus = bloque.x, xminus = bloque.x;
 		int yplus = bloque.y, yminus = bloque.y;
 		for (int y1=(bloque.y+1);y1<height;y1++){
-			if ( (boardGrid[y1][bloque.x].getColor().equals(bloque.getColor())) || (boardGrid[y1][bloque.x].getColor().equals(bonus1)) || (boardGrid[y1][bloque.x].getColor().equals(bonus2)) ){
+			if ((boardGrid[y1][bloque.x].getColor().equals(bonus1)) || (boardGrid[y1][bloque.x].getColor().equals(bonus2))){
+				BloqueComodin auxblock = (BloqueComodin) boardGrid[y1][bloque.x];
+				auxblock.habilidad.Habilidad();
+				yplus = 14;
+				break;
+			}
+			if (boardGrid[y1][bloque.x].getColor().equals(bloque.getColor())){
 				yplus = y1;
 			}
 			else{
@@ -284,7 +276,13 @@ public class GameEngine implements ActionListener {
 			}
 		}
 		for (int y2=(bloque.y-1);y2>=0;y2--){
-			if (boardGrid[y2][bloque.x].getColor().equals(bloque.getColor()) || (boardGrid[y2][bloque.x].getColor().equals(bonus1)) || (boardGrid[y2][bloque.x].getColor().equals(bonus2)) ){
+			if ((boardGrid[y2][bloque.x].getColor().equals(bonus1)) || (boardGrid[y2][bloque.x].getColor().equals(bonus2))){
+				BloqueComodin auxblock = (BloqueComodin) boardGrid[y2][bloque.x];
+				auxblock.habilidad.Habilidad();
+				yminus = 0;
+				break;
+			}
+			if (boardGrid[y2][bloque.x].getColor().equals(bloque.getColor())){
 				yminus = y2;
 			}
 			else{
@@ -293,7 +291,13 @@ public class GameEngine implements ActionListener {
 		}
 		// En Y:		
 		for (int x1=(bloque.x+1);x1<height;x1++){
-			if (boardGrid[bloque.y][x1].getColor().equals(bloque.getColor()) || (boardGrid[bloque.y][x1].getColor().equals(bonus1)) || (boardGrid[bloque.y][x1].getColor().equals(bonus2)) ){
+			if ((boardGrid[bloque.y][x1].getColor().equals(bonus1)) || (boardGrid[bloque.y][x1].getColor().equals(bonus2))){
+				BloqueComodin auxblock = (BloqueComodin) boardGrid[bloque.y][bloque.x];
+				auxblock.habilidad.Habilidad();
+				xplus = 14;
+				break;
+			}
+			if (boardGrid[bloque.y][x1].getColor().equals(bloque.getColor())){
 				xplus = x1;
 			}
 			else{
@@ -301,7 +305,13 @@ public class GameEngine implements ActionListener {
 			}
 		}
 		for (int x2=(bloque.x-1);x2>=0;x2--){
-			if (boardGrid[bloque.y][x2].getColor().equals(bloque.getColor()) || (boardGrid[bloque.y][x2].getColor().equals(bonus1)) || (boardGrid[bloque.y][x2].getColor().equals(bonus2)) ){
+			if ((boardGrid[bloque.y][x2].getColor().equals(bonus1)) || (boardGrid[bloque.y][x2].getColor().equals(bonus2))){
+				BloqueComodin auxblock = (BloqueComodin) boardGrid[bloque.y][bloque.x];
+				auxblock.habilidad.Habilidad();
+				xminus = 0;
+				break;
+			}
+			if (boardGrid[bloque.y][x2].getColor().equals(bloque.getColor())){
 				xminus = x2;
 			}
 			else{
@@ -353,9 +363,10 @@ public class GameEngine implements ActionListener {
 		else if (colour.equals("yellow")){
 			estadisticas[4] += total;
 		}
+		restantes -= total;
 		setEstadisticasLabel();
 	}
-	
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
