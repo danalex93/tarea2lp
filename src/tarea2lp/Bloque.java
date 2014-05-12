@@ -23,10 +23,11 @@ public abstract class Bloque {
 	public abstract String getColor();
 	public abstract void setButton(BlockButton b) ;
 	public abstract BlockButton getButton() ;
-	public abstract void setDummy() ;
 	public abstract void setColor(String color);
 	public abstract void setCoords(int x, int y);
 	public abstract int getX();
 	public abstract int getY();
 	protected abstract String randKey(HashMap<String, Object[]> hm);
+
+	public abstract void destruirBloque();
 }

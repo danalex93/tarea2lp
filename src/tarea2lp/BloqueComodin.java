@@ -73,17 +73,6 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 		return innerButton;
 	}
 	
-	/******** Funcion: setDummy **************
-	Descripcion: Funcion Equivalente a destruirBloque;
-	Parametros:
-	Retorno: void
-	************************************************/
-	public void setDummy() {
-		innerButton.setText("-");
-		innerButton.setBackground(Color.WHITE);
-		color = "-";
-	}
-	
 	/******** Funcion: setColor **************
 	Descripcion: Asigna un color al bloque
 	Parametros:
@@ -163,5 +152,17 @@ public class BloqueComodin extends Bloque implements HabilityBehavior{
 		innerButton.addActionListener((ActionListener) actionlistener);
 		innerButton.setOpaque(true);
 		innerButton.setBorder(customBorder);
+	}
+	
+	/******** Funcion: destruirBloque **************
+	Descripcion: crea un bloque en blanco para ser eliminado por el grid
+	Parametros:
+	Retorno: void
+	************************************************/
+	@Override
+	public void destruirBloque() {
+		innerButton.setText("-");
+		innerButton.setBackground(Color.WHITE);
+		color = "-";
 	}
 }

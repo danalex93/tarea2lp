@@ -27,7 +27,11 @@ public class GameEngine implements ActionListener {
 	private static Integer restantes = 300;
 	private static JLabel restantesLabel = new JLabel("L: "+restantes.toString());
 
-	
+	/******** Funcion: createBlock **************
+	Descripcion: Crea un nuevo bloque que luego sera ingresado al tablero
+	Parametros:
+	Retorno: void
+	************************************************/
 	public Bloque createBlock() {
 		int percentage = randInt(0, 100);
 		if (percentage <= breakPercent) {
@@ -37,15 +41,29 @@ public class GameEngine implements ActionListener {
 		}
 	}
 	
+	/******** Funcion: getGrid **************
+	Descripcion: retorna el tablero de bloques
+	Parametros:
+	Retorno: retorna la referencia al arreglo de bloques
+	************************************************/
 	public Bloque[][] getGrid() {
 		return boardGrid;
 	}
 	
+	/******** Funcion: setGrid **************
+	Descripcion: Setea el valor de BoardGrid
+	Parametros:
+	Retorno: void
+	************************************************/
 	public void setGrid(Bloque[][] g) {
 		boardGrid = g;
 	}
 	
-	
+	/******** Funcion: initEstadisticasLabel **************
+	Descripcion: Inicia las estadistias en pantalla
+	Parametros:
+	Retorno: void
+	************************************************/
 	private void initEstadisticasLabel() {
 		estadisticasLabel[0] = new JLabel("R: "+estadisticas[0]);
 		estadisticasLabel[1] = new JLabel("B: "+estadisticas[1]);
@@ -56,6 +74,11 @@ public class GameEngine implements ActionListener {
 		gui.addComponent(restantesLabel);
 	}
 	
+	/******** Funcion: setEstadisticasLabel **************
+	Descripcion: Cambia el valor de las estadisticas del juego en pantalla
+	Parametros:
+	Retorno: void
+	************************************************/
 	private void setEstadisticasLabel(){
 		estadisticasLabel[0].setText("R: "+estadisticas[0]);
 		estadisticasLabel[1].setText("B: "+estadisticas[1]);
@@ -65,6 +88,11 @@ public class GameEngine implements ActionListener {
 		restantesLabel.setText("L: "+restantes.toString());
 	}
 	
+	/******** Funcion: GameEngine **************
+	Descripcion: Constructor de GameEngine
+	Parametros:
+	Retorno:
+	************************************************/
 	public GameEngine() {
 		height = 15;
 		width = 15;
@@ -86,6 +114,13 @@ public class GameEngine implements ActionListener {
 		blockSelected = false;
 	}
 	
+	/******** Funcion: checkSwap **************
+	Descripcion: Chequea si los dos bloques presionados son contiguos y pueden hacer swap,
+				comparando el anterior en tal caso
+	Parametros:
+	Bloque bloque
+	Retorno: void
+	************************************************/
 	public void checkSwap(Bloque bloque){
 		if (!blockSelected) {
 			prevBlock = bloque;
@@ -101,12 +136,18 @@ public class GameEngine implements ActionListener {
 		}
 	}
 	
+	/******** Funcion: swapButton **************
+	Descripcion: Cambia dos bloques de posicion
+	Parametros:
+	Bloque bloque 1
+	Bloque bloque 2
+	Retorno: void
+	************************************************/
 	public void swapButton(Bloque bloque1, Bloque bloque2) {
 		int auxX, auxY;
 		boardGrid[bloque1.y][bloque1.x] = bloque2;
 		boardGrid[bloque2.y][bloque2.x] = bloque1;
-		
-
+	
 		auxX = bloque1.x; auxY = bloque1.y;
 		bloque1.setCoords(bloque2.x, bloque2.y);
 		bloque2.setCoords(auxX, auxY);
@@ -151,7 +192,8 @@ public class GameEngine implements ActionListener {
 			}
 			else{
 				if (isGameOver()){
-					gui.msgbox("Game Over!");
+					gui.msgbox("Re-making the board!");
+					renewBoard();
 				}
 			}
 		}
@@ -160,6 +202,13 @@ public class GameEngine implements ActionListener {
 		}
 	}
 	
+	/******** Funcion: fakeSwapButton **************
+	Descripcion: Realiza el rollback de un swapButton cuando este no origina ninguna destruccion
+	Parametros:
+	Bloque bloque 1
+	Bloque bloque 2
+	Retorno: void
+	************************************************/
 	public void fakeSwapButton(Bloque bloque1, Bloque bloque2) {
 		int auxX, auxY;
 		boardGrid[bloque1.y][bloque1.x] = bloque2;
@@ -192,6 +241,13 @@ public class GameEngine implements ActionListener {
 		gui.updateGrid();
 	}
 	
+	/******** Funcion: swapWhite **************
+	Descripcion: cambia un bloque blanco con uno normal
+	Parametros:
+	Bloque bloque1
+	Bloque bloque2
+	Retorno: void
+	************************************************/
 	public void swapWhite(Bloque bloque1, Bloque bloque2){
 
 		int auxX, auxY;
@@ -227,12 +283,26 @@ public class GameEngine implements ActionListener {
 		gui.updateGrid();
 	}
 	
+	/******** Funcion: randInt **************
+	Descripcion: Retorna un entero aleatorio
+	Parametros:
+	Bloque bloque1
+	Bloque bloque2
+	Retorno: entero aleatorio
+	************************************************/
 	public static int randInt(int min, int max) {
 	    Random rand = new Random();
 	    int randomNum = rand.nextInt((max - min) + 1) + min;
 	    return randomNum;
 	}
 	
+	/******** Funcion: fillWhites **************
+	Descripcion: Crea un nuevo bloque en los campos en blanco
+	Parametros:
+	int min
+	int max
+	Retorno: void
+	************************************************/
 	public void fillWhites() {
 		Bloque newBloque, bloque;
 		for (int y = 0; y < height; y++) {
@@ -252,6 +322,33 @@ public class GameEngine implements ActionListener {
 		}
 	}
 	
+	/******** Funcion: renewBoard **************
+	Descripcion: Crea un nuevo tablero cuando no hay mas movimientos
+	Parametros:
+	Retorno: void
+	************************************************/
+	public void renewBoard() {
+		Bloque newBloque, bloque;
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				newBloque = createBlock();
+				bloque = boardGrid[y][x];
+				BlockButton button1 = bloque.getButton();
+				BlockButton button2 = newBloque.getButton();
+				button1.setText(button2.getText());
+				button1.setBackground(button2.getBackground());
+				newBloque.setButton(button1);
+				newBloque.setCoords(x,y);
+				boardGrid[y][x] = newBloque;
+			}
+		}
+	}
+	
+	/******** Funcion: isGameOver **************
+	Descripcion: Chequea en todo el tablero si existen mas jugadas
+	Parametros:
+	Retorno: void
+	************************************************/
 	public Boolean isGameOver(){
 		for (int y=14;y>=0;y--){
 			for (int x=0;x<15;x++){
@@ -353,6 +450,12 @@ public class GameEngine implements ActionListener {
 		return true;
 	}
 	
+	/******** Funcion: clearButtons **************
+	Descripcion: Elimina todos los bloques que puedan estar contiguos de 3 o mas
+	Parametros:
+	Bloque bloque
+	Retorno: void
+	************************************************/
 	public Boolean clearButtons(Bloque bloque){
 		// Chequear iguales
 		// En X:
@@ -425,7 +528,7 @@ public class GameEngine implements ActionListener {
 		// En X:
 		if (xplus-xminus>=2){
 			for (int i = xminus; i <= xplus; i++){
-				boardGrid[bloque.y][i].setDummy();
+				boardGrid[bloque.y][i].destruirBloque();
 				for (int r=bloque.y;r>0;r--){
 					if(boardGrid[r-1][i].getColor().equals("-"))
 						break;
@@ -438,7 +541,7 @@ public class GameEngine implements ActionListener {
 		// En Y:
 		if (yplus-yminus>=2){
 			for (int i = yminus; i <= yplus; i++){
-				boardGrid[i][bloque.x].setDummy();
+				boardGrid[i][bloque.x].destruirBloque();
 				for (int r=i;r>0;r--){
 					if(boardGrid[r-1][bloque.x].getColor().equals("-"))
 						break;
@@ -471,7 +574,12 @@ public class GameEngine implements ActionListener {
 		return check;
 	}
 
-
+	/******** Funcion: actionPerformed **************
+	Descripcion: Realiza una accion cuando un boton es presionado
+	Parametros:
+	ActionEvent
+	Retorno: void
+	************************************************/
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		BlockButton button = (BlockButton) e.getSource();

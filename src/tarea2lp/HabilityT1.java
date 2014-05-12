@@ -32,7 +32,7 @@ public class HabilityT1 implements HabilityBehavior {
 	public void Habilidad(){
 		//Borra toda la fila
 		for (int x=0;x<15;x++){
-			engine.boardGrid[block.y][x].setDummy();
+			engine.boardGrid[block.y][x].destruirBloque();
 			for (int y=block.y;y>0;y--){
 				engine.swapWhite(engine.boardGrid[y][x],engine.boardGrid[y-1][x]);
 			}

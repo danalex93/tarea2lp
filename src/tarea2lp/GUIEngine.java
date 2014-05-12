@@ -18,6 +18,12 @@ public class GUIEngine {
 	private int height;
 	private int width;
 	
+	/******** Funcion: loadGrid **************
+	Descripcion: Carga todos los bloques en la pantalla
+	Parametros:
+	Bloque[][] grid
+	Retorno: void
+	************************************************/
 	public void loadGrid(Bloque[][] grid) {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
@@ -26,29 +32,63 @@ public class GUIEngine {
 		}
 	}
 	
+	/******** Funcion: updateGrid **************
+	Descripcion: Actualiza lo que aparece en la pantalla
+	Parametros:
+	Retorno: void
+	************************************************/
 	public void updateGrid() {
 		frame.pack();
 		frame.setVisible(true);
 	}
 	
+	/******** Funcion: addComponent **************
+	Descripcion: Anade un nuevo componente a la pantalla
+	Parametros:
+	Component comp
+	Retorno: void
+	************************************************/
 	public void addComponent(Component comp) {
 		frame.add(comp);
 	}
 	
+	/******** Funcion: removeComponent **************
+	Descripcion: Remueve un componente de la pantalla
+	Parametros:
+	Component comp
+	Retorno: void
+	************************************************/
 	public void removeComponent(Component comp) {
 		frame.remove(comp);
 	}
 	
+	/******** Funcion: addComponent **************
+	Descripcion: Similar a la anterior pero con un arreglo de JLabels
+	Parametros:
+	JLabel[] comp
+	Retorno: void
+	************************************************/
 	public void addComponent(JLabel[] comp) {
 		for (JLabel c : comp) {
 			addComponent(c);
 		}
 	}
 	
+	/******** Funcion: msgbox **************
+	Descripcion: Muestra una alerta por pantalla con un texto definido
+	Parametros:
+	String s
+	Retorno: void
+	************************************************/
 	public void msgbox(String s){
 		JOptionPane.showMessageDialog(null, s);
 	}
 	
+	/******** Funcion: GUIEngine **************
+	Descripcion: Constructor de GUIEngine
+	Parametros:
+	Retorno:
+	************************************************/
 	public GUIEngine() {
 		height = 15;
 		width = 15;
@@ -71,6 +111,5 @@ public class GUIEngine {
 		frame.setVisible(true);
 		frame.setPreferredSize(new Dimension(600, 640));
 	}
-	
-	
+
 }

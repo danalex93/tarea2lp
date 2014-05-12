@@ -68,17 +68,6 @@ public class BloqueColor extends Bloque {
 	public BlockButton getButton() {
 		return innerButton;
 	}
-	
-	/******** Funcion: setDummy **************
-	Descripcion: Funcion Equivalente a destruirBloque;
-	Parametros:
-	Retorno: void
-	************************************************/
-	public void setDummy() {
-		innerButton.setText("-");
-		innerButton.setBackground(Color.WHITE);
-		color = "-";
-	}
 
 	/******** Funcion: setColor **************
 	Descripcion: Asigna un color al bloque
@@ -135,4 +124,15 @@ public class BloqueColor extends Bloque {
 		return randomKey;
 	}
 
+	/******** Funcion: destruirBloque **************
+	Descripcion: crea un bloque en blanco para ser eliminado por el grid
+	Parametros:
+	Retorno: void
+	************************************************/
+	@Override
+	public void destruirBloque() {
+		innerButton.setText("-");
+		innerButton.setBackground(Color.WHITE);
+		color = "-";
+	}
 }
